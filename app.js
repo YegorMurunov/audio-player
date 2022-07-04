@@ -1,11 +1,11 @@
-// todo: скелетон лоадинг
-// ? поиск песен (по алгоритму к примеру бинароному поиску)
+// todo: Если плохой интернет сделать загрузку
 
 import { formatSeconds } from './modules/additionalFunctions.js';
 import { songs } from './modules/data.js';
 
 window.addEventListener('DOMContentLoaded', () => {
 	console.log('Привет! Я Егор - автор этого плеера. Если ты хочешь себе сайт, могу предложить свои услуги, посмотри мои работы на сайте портфолио(https://yegormurunov.gq). И если тебе понравится, обязательно напиши мне! 😉');
+
 	// dom
 	const dom = {
 		skeleton: document.getElementById('skeleton'),
@@ -35,28 +35,34 @@ window.addEventListener('DOMContentLoaded', () => {
 			numberOfSongs: document.getElementById('all-songs'),
 		}
 	}
-	
-	setTimeout(() => {
-		dom.skeleton.classList.add('hidden');
-		dom.player.classList.remove('hidden');
-	}, 1000);
 
 	// vars
 	let isPlay = false;
 	let isMute = false;
 	let currentSong = 0;
-	
+
+
 	// render audio
 	const renderAudio = (num) => {
 		dom.audio.src = `assets/music/${songs[num].audio}`;
-		dom.poster.src = `assets/posters/${songs[num].poster}`;
-		dom.title.innerHTML = `${songs[num].title}`;
-		dom.author.innerHTML = `${songs[num].author}`;
-		dom.poster.alt = `${songs[num].title}`;
+		dom.poster.src = `assets/interface/load.gif`;
+		dom.title.innerHTML = `Загрузка...`;
+		dom.author.innerHTML = `Загрузка...`;
 		dom.songNumber.currentSong.innerHTML = `${currentSong+1}`;
 		dom.songNumber.numberOfSongs.innerHTML = `${songs.length}`;
+		
+		dom.audio.oncanplay = () => {
+			dom.poster.src = `assets/posters/${songs[num].poster}`;
+			dom.title.innerHTML = `${songs[num].title}`;
+			dom.author.innerHTML = `${songs[num].author}`;
+			dom.poster.alt = `${songs[num].title}`;
+		}
 	}
 	renderAudio(currentSong);
+	setTimeout(() => {
+		dom.skeleton.classList.add('hidden');
+		dom.player.classList.remove('hidden');
+	}, 1000);
 	
 	// functions
 	const playPause = () => {
@@ -201,4 +207,13 @@ window.addEventListener('DOMContentLoaded', () => {
 	
 	// keyboard navigation
 	window.addEventListener('keydown', checkKey);
+
+
+	const showInfo = document.querySelector('.show-information'),
+		blockInfo = document.querySelector('.block-information');
+
+	showInfo.onclick = (e) => {
+		e.preventDefault();
+		blockInfo.classList.toggle('visible');
+	}
 });

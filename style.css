@@ -1,8 +1,4 @@
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
+*,::after,::before{padding:0;margin:0;box-sizing:border-box}ol,ul{padding:0}blockquote,body,dd,dl,figcaption,figure,h1,h2,h3,h4,html,li,ol,p,ul{margin:0;padding:0}li[class],ol[class],ul[class]{list-style:none}
 
 body {
 	font-family: 'Poppins', sans-serif;
@@ -247,15 +243,6 @@ i.fa-solid:hover {
 	color: #2657eb;
 }
 
-@keyframes iconAnim {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-
 @keyframes rotatePoster {
 	from {
 		transform: rotate(0deg);
@@ -263,6 +250,28 @@ i.fa-solid:hover {
 	to {
 		transform: rotate(360deg);
 	}
+}
+
+.show-information {
+	display: inline-block;
+	margin-top: 25px;
+	font-size: 18px;
+	color: #2657eb;
+	text-decoration: none;
+	border-bottom: 1px dashed #2657eb;
+}
+.block-information {
+	display: none;
+	margin-top: 10px;
+	font-size: 18px;
+	color: #000;
+}
+.block-information ul {
+	padding-left: 15px;
+}
+
+.block-information.visible {
+	display: block;
 }
 
 @media (max-width: 490px) {
